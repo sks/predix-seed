@@ -1,14 +1,24 @@
 language: node_js
+
+sudo: required
+services:
+- docker
+
 node_js:
 - lts/*
+
 before_install:
+- docker pull nginx:alpine
 - yarn global add bower
+
 install:
 - bower install
 - yarn install
-script: 
-  - yarn test
-  - yarn build
+
+script:
+- yarn test
+- yarn build
+
 deploy:
   provider: cloudfoundry
   username: sabithksme@gmail.com
@@ -19,7 +29,23 @@ deploy:
   space: dev
   on:
     branch: master
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=$DOCKER_USER/predix-seed
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO
+  - docker push $REPO:$COMMIT
+  - docker push $REPO:$TAG
+
 cache:
   yarn: true
   directories:
   - node_modules
+env:
+  global:
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - secure: JCNcapH4fTfqlPVetwonQntRd1XEUDtU15ulNUatpyJTOxGZOAEWEyreEYJOfdSgmaTM5AStc4FZntJEBTXE9W26+s7r9W7qmHrixvOeo2MRMw9UWk7H6edtXeVHuhr8KWzFqKbrALN6kqn5SLWsde2raHFlPySpTtcUkhi1JZyL6foj7UJWM4WYIgd+xYD4guUWqWnDj+Yfc495g/e4bUpMT0mw1ygg+19xXt9M0p7GTFoiuS0lbDFRo+u/EMwdajHMtb4bKcPkVq9NrHhDHJ3G2vLdEV12a+0MfzgFxjRmdqCu0BCF3rLVkJJU/KwI171FGn5qIHz2Rk3GbmGQuvVdZi2nJ8GdjNEs8Vt8aTvnKZ1OM2pMdD1sW1Qrzl41+P2f+/Yujee4jBo2ntOLZ/EYvoCbs+vhcbQ5T/qcqM6pFdlifCoqMMUzQycdfpBHXjTjnnq9cC1Aw/an88Y5o8yEkpiNTGkGrAXYfi4pCDiUaRPE/P9MHfXQys0YLe0kpg1RAIhrQBb9mmvKhYlnbaEylWoxgNoOTPe2YXEiuLMu2mhNhVnQaLBbfxPS7ckeJvT4dtouFCGM5JVQoXjaYfwSY46v+XiCi6m6lC51Ixv1zY+Lg7wMOTeR7fe8nXoHjUlKkY3p/XyR/UnLOnnSN/POKb9nwao1EXu/tT7VaNk=
+  - secure: IQ+dJqNnpU3Mj0CWvt/Cnab51+aKV2ErEea9x7V2VksYivIEbjorP5Y+kRAPGCJ4j0uefdQkcpyxM7Vw2bTAvOkUxUSyo2tsYvtesbzmUzizVEPh+jXxqY0PkskSvsbw84yqiu6FisXj5OO25Pjuyl2fOlQAVxYciJCknAau6bmYUNNxh73LadpbaoYXve+lNS4ipmoagwlgvPewhJfgGoN1qfWsBCeRzhIK14uPtCMttGwKHuVjEEAJVy6MiH7WbE5o7uREL7KqktV3s6QoPgDexKjlIjANNeRkB8I7AFjwiFfLHORsmz+WAZB9iyLoucKYMDV9p1Ku/3gS7xplna+hoVSBNICgbpp8CGCHonigr34YMpWvmMxmEp9wvEJ0A+YTd9mCss6gvcg2J1J6NpwL/5MldpNjpI3pLFEDhgvSIo3W7DquRem1n6UYJ8M7CDfkdOdul6r0PeuDCO+xC4R5/dfp5jCwTIlITAb9BRpSgOrKb4pzmDxC4aH2XJCpMNMUE79sPGdbe0uB3HOgMOGTL71Y3TGi9x01YPO+jc6Kb9MRtzofDhcpGTShUJJ+53MYa21HYuFOa+2XLfLUOtwNarSlbT9v/lT4ZmYDZ9HLdYLCXghrXSKc2x2vPenJEI4d2gBtFr3UPtlx+NorLgtZcx6t+g1hwLk7s3lmHUE=
+  - secure: pd4M+FLDQfKi6M5RJkI/RnQOVLNtHydWl9yy6vS7Kdmexwo+WqdTv3pT60JobEXZ0TaL5kdsjUSvk0BCBq7yZ+Etop8eKc9SITEqqVcPIEz1GchZOs4yBSJlVal5rPe3ZsMhINGhF513XdEh/kEafQMvxBJJU05ZePBOHGnkUDWGzFt2HkfkqlRFO5mNrgeukK4RG9Jka0RQsA+uj/z/pNUYjfYxlnUT8bj9Pd0Us9aiuS1fNuv0gaG/RHWwU8qW4sFC8lC2Ulyk/Mm7BnR+3ZAEmVs3m0e+YAAhJi2gF8Nf+NXu/mT56+MTI0SceGx5/0vwhoI2dPHkgEwXjV+PprOkSv8v6zmxFA47EHkIHHcFdHUCNIrYoxpaB8Uqy/MjlmPxYbBvkK+1uO4z6U8FO0Cqz9/8O5IM5Fom9zHbHfwVIqOzLal50gzzGkFd4SaMyKqXDYUuGhjN0ko2lf2vFu32Km3pGRMbj5R71KScLnDLNEX7/Ylo/285w85pNB0wntLXpBEtfPlG9R+itqBd3gSJPCSRQl/rdE523xb0Cqlpd/n2g5YUjBtegXaQLid3IfDWEJ8RbxqiqTdd0sgENhOf1OkQDuXeqDhbC09QVLyS6dgDZ1RsoZYDbiue9GYMGTe6vB6dg/9Tzb3QAcC054Bd0LQtGNBLUUydaJr2vJU=

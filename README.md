@@ -2,7 +2,7 @@
 
 # PX + Vue + Typescript Seed
 
-A [Vue](vuejs.org) Application written in [typescript](https://www.typescriptlang.org) using [Polymer/PX components](predix-ui.com)
+A [Vue](https://vuejs.org/) Application written in [typescript](https://www.typescriptlang.org) using [Polymer/PX components](https://predix-ui.com)
 
 ## Scripts
 #### Dependencies 
@@ -19,7 +19,21 @@ yarn build
 #### Hosting
 On cloudfoundry Using [staticfile-buildpack](https://github.com/cloudfoundry/staticfile-buildpack).
 
-[manifest.yml](./manifest.yml) file has more details
+Currently hosted [here](https://predix-seed-vue.run.aws-usw02-pr.ice.predix.io/)
+
+Checkout [manifest.yml](./manifest.yml) file has more details
 ```
 cf push 
+```
+
+#### Using Docker image
+```
+# Build the image
+docker build -t app:latest .
+
+# Run the image already Hosted
+docker run -d --name predix-seed -p 8080:80 --rm predixdev/predix-seed:latest
+## Navigate to http://localhost:8080
+## Stop the docker Container
+docker stop predix-seed
 ```
