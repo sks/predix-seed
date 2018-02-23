@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - lts/*
+before_install:
+  - yarn global add bower
+install: 
+  - bower install
+  - yarn install
+script: yarn build
+after_success: ls dist
+cache:
+  yarn: true
+  directories:
+    - node_modules
