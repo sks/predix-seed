@@ -1,0 +1,27 @@
+{
+  "name": "predix-seed",
+  "description": "A Seed application using Vue and PX Components",
+  "main": "src/main.ts",
+  "authors": [
+    "Sabith KS <sabithksme@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "PX",
+    "predix",
+    "vue",
+    "typescript"
+  ],
+  "homepage": "https://github.com/sks/predix-seed",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "px-spacing-design": "^1.0.3"
+  }
+}
