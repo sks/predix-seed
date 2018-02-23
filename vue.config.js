@@ -2,8 +2,8 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        includePaths: ['src/assets/bower_components']
+        includePaths: ['public/bower_components']
       }
     }
   }
-}
+};

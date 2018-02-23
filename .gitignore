@@ -21,4 +21,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-src/assets/bower_components/
+public/bower_components/

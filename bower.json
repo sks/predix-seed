@@ -22,6 +22,7 @@
     "tests"
   ],
   "dependencies": {
-    "px-spacing-design": "^1.0.3"
+    "px-spacing-design": "^1.0.3",
+    "px-app-nav": "^2.1.7"
   }
 }

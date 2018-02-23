@@ -1,4 +1,4 @@
 {
-  "directory": "src/assets/bower_components",
+  "directory": "public/bower_components",
   "strict-ssl": false
 }

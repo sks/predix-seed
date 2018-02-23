@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="<%= webpackConfig.output.publicPath %>bower_components/webcomponentsjs/webcomponents-loader.js" async></script>
     <link rel="shortcut icon" href="<%= webpackConfig.output.publicPath %>favicon.ico">
     <title>Predix Seed</title>
   </head>
@@ -11,4 +12,18 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+    (function() {
+      document.addEventListener('WebComponentsReady', function componentsReady() {
+        document.removeEventListener('WebComponentsReady', componentsReady, false);
+        var link = document.createElement('link');
+        link.href = '<%= webpackConfig.output.publicPath %>elements.html';
+        link.async = true
+        link.rel = "import"
+        var refScript = document.getElementsByTagName('script')[0];
+        refScript.parentNode.insertBefore(link, refScript);
+      }, true);
+    })();
+  </script>
+  
 </html>

@@ -21,3 +21,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 src
+dist/bower_components/ 
+dist/elements.html

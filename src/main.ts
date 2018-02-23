@@ -5,6 +5,10 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
+Vue.config.ignoredElements = [
+  'px-app-nav',
+];
+
 new Vue({
   router,
   store,
