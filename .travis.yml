@@ -1,14 +1,25 @@
 language: node_js
 node_js:
-  - lts/*
+- lts/*
 before_install:
-  - yarn global add bower
-install: 
-  - bower install
-  - yarn install
-script: yarn build
-after_success: ls dist
+- yarn global add bower
+install:
+- bower install
+- yarn install
+script: 
+  - yarn test
+  - yarn build
+deploy:
+  provider: cloudfoundry
+  username: sabithksme@gmail.com
+  password:
+    secure: T6JaO6u5kXcNQVJRXGfSyqUf7ztSj/dUBq+/lM1BTINssKNfW9d4ldZMDOculoQ8XGegRYaACUMY7akYOyTGOinbCi547sbsSnMTAaTLfoECaU6uaUcvlzHDKZtOUwB5WrU2ftK5n9BzSMgt9DKJffnnquQcMR5leN7kfwib9QqK15A2hIkuQSYw5OTv6gVRieEk//m8JWiibggfYW06tmspvpFFLZXZc2aMc8fhuGNV8cyfJbjundTZZab28p5VL7XryhjewXujhdFr2+jX6Sc4ExO3OVdrUxIfxO2nJxmh50WYv0s0NsVDsgUdNJKnzoqTaLUfZ+tpvQEPNgjvJ7e1Tqs10vOaFPWDnSpwPGBZY3i6tP68ENKQaumQUujhlKuqLiBNS0Z+xmHrQmx8yGYSNruEQSGDjx9h6QmHx34b7JwfX69oPWZgJ+J6asdeZGHR6DORLJ7aMVK74D+0mLmjg43BzGLv/PF7ZABTkoeEQSLaFPqOnGbnSBEManWKaCb+V9RQoG6ulxB6Y9DrhWAIGyeIq3x3LSkK5np64TOFJPmjtOcInBK1Mcm6X5ZAZ5V9BGxp1Gs2SryJn2dATVRlvmOVro276aIcd3S1Mgr8xPLlyyG0ihr/e5QrMROFbpR3xhhzqvbq4m/hFz5RUUQzSAkKvHjX2u8K/+yBnKE=
+  api: https://api.system.aws-usw02-pr.ice.predix.io
+  organization: sks
+  space: dev
+  on:
+    branch: master
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
