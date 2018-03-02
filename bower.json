@@ -23,6 +23,7 @@
   ],
   "dependencies": {
     "px-spacing-design": "^1.0.3",
-    "px-app-nav": "^2.1.7"
+    "px-app-nav": "^2.1.7",
+    "px-theme": "^3.3.3"
   }
 }
