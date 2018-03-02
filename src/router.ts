@@ -12,6 +12,7 @@ export default new Router({
     {
       path: '/',
       component: Console,
+      redirect: Routes.HOME,
       children: [
         {
           path: 'home',
