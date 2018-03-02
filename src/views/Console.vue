@@ -1,5 +1,12 @@
 <template>
-  <div id='app'>
+  <div>
+    <div id='nav'>
+      <px-app-nav 
+        :selected-route.prop='[$route.path.split("/")[1]]'
+        :items.prop='navItems'
+        @selected-changed="navigate"
+      ></px-app-nav>
+    </div>
     <router-view/>
   </div>
 </template>
@@ -10,7 +17,7 @@ import { INavItem } from '@/px/NavItem';
 import { Routes } from '@/router/routes';
 
 @Component
-export default class HelloWorld extends Vue {
+export default class Console extends Vue {
   public navItems: INavItem[] = [
     {label: 'Home', id: Routes.HOME, icon: 'px-fea:home'},
     {label: 'About', id: Routes.ABOUT, icon: 'px-com:chat'},
