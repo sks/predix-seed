@@ -7,7 +7,7 @@ import { Routes } from '@/router/routes';
 
 Vue.use(Router);
 
-export default new Router({
+const router =  new Router({
   routes: [
     {
       path: '/',
@@ -17,10 +17,12 @@ export default new Router({
         {
           path: 'home',
           name: Routes.HOME,
+          meta: {title: "Home"},
           component: Home,
         },
         {
           path: 'about',
+          meta: {title: "About"},
           name: Routes.ABOUT,
           component: About,
         },
@@ -28,3 +30,10 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  window.document.title = `Predix Seed - ${to.meta.title}`;
+  next();
+});
+
+export default router;
