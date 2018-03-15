@@ -6,21 +6,8 @@
 
 <script lang='ts'>
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { INavItem } from '@/px/NavItem';
-import { Routes } from '@/router/routes';
-
 @Component
 export default class HelloWorld extends Vue {
-  public navItems: INavItem[] = [
-    {label: 'Home', id: Routes.HOME, icon: 'px-fea:home'},
-    {label: 'About', id: Routes.ABOUT, icon: 'px-com:chat'},
-  ];
-
-  public navigate(e: CustomEvent) {
-    if (!e.detail.value) { return; }
-    const navItem = e.detail.value.id;
-    this.$router.push({name: navItem});
-  }
 }
 </script>
 
