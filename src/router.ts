@@ -17,12 +17,12 @@ const router =  new Router({
         {
           path: 'home',
           name: Routes.HOME,
-          meta: {title: "Home"},
+          meta: {title: 'Home'},
           component: Home,
         },
         {
           path: 'about',
-          meta: {title: "About"},
+          meta: {title: 'About'},
           name: Routes.ABOUT,
           component: About,
         },

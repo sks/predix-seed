@@ -1,43 +1,87 @@
 {
-  "name": "predix-seed",
+  "name": "predix-vue-ui-seed",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build && yarn vulcanize",
-    "test": "vue-cli-service test",
+    "test": "TZ=UTC vue-cli-service test:unit",
     "e2e": "vue-cli-service e2e",
-    "lint": "vue-cli-service lint",
-    "vulcanize": "gulp"
+    "inspect": "vue-cli-service inspect",
+    "lint": "./node_modules/.bin/vue-cli-service lint",
+    "vulcanize": "gulp",
+    "cover": "COVERAGE=true nyc yarn test --reporter mocha-junit-reporter",
+    "check_focused_tests": "(grep -rq '\\.only' tests/ && echo 'You have it.only() in your tests!' && exit 1) || exit 0"
   },
-  "dependencies": {
-    "vue": "^2.5.13",
-    "vue-class-component": "^6.0.0",
-    "vue-property-decorator": "^6.0.0",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "gitHooks": {
+    "pre-push": " yarn lint && yarn check_focused_tests"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.0",
-    "@types/mocha": "^2.2.46",
-    "@vue/cli-plugin-babel": "^3.0.0-beta.1",
-    "@vue/cli-plugin-e2e-nightwatch": "^3.0.0-beta.1",
-    "@vue/cli-plugin-typescript": "^3.0.0-beta.1",
-    "@vue/cli-plugin-unit-mocha": "^3.0.0-beta.1",
-    "@vue/cli-service": "^3.0.0-beta.1",
-    "@vue/test-utils": "^1.0.0-beta.10",
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "@types/mocha-steps": "^1.1.1",
+    "@types/moment-timezone": "^0.5.8",
+    "@types/moxios": "^0.4.8",
+    "@types/netmask": "^1.0.30",
+    "@types/sinon": "^5.0.5",
+    "@vue/cli-plugin-typescript": "3.0.5",
+    "@vue/cli-plugin-unit-mocha": "3.0.5",
+    "@vue/cli-service": "3.0.5",
+    "@vue/test-utils": "^v1.0.0-beta.24",
+    "ajv": "^6.5.2",
+    "axios": "^0.18.0",
     "chai": "^4.1.2",
-    "gulp": "^3.9.1",
-    "gulp-cachebust": "^0.0.9",
-    "gulp-htmlmin": "^4.0.0",
+    "gulp": "^4.0.0",
+    "gulp-cachebust": "^0.0.10",
+    "gulp-htmlmin": "^5.0.1",
     "gulp-vulcanize": "^7.0.0",
-    "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
-    "vue-template-compiler": "^2.5.13"
+    "https-proxy-agent": "^2.2.1",
+    "inject-loader": "^4.0.1",
+    "istanbul-instrumenter-loader": "^3.0.1",
+    "mocha": "^5.2.0",
+    "mocha-junit-reporter": "^1.18.0",
+    "mocha-steps": "^1.1.0",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
+    "moxios": "^0.4.0",
+    "netmask": "^1.0.6",
+    "node-sass": "^4.9.3",
+    "nyc": "^13.0.1",
+    "sass-loader": "^7.1.0",
+    "sha.js": "^2.4.11",
+    "sinon": "^7.1.0",
+    "typescript": "^3.1.1",
+    "upath": "^1.0.5",
+    "vue": "^2.5.17",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^7.0.0",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.17",
+    "vuex": "^3.0.1",
+    "webpack": "^4.18.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "nyc": {
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.js"
+    ],
+    "instrument": false,
+    "sourceMap": false,
+    "reporter": [
+      "cobertura",
+      "text-summary",
+      "text",
+      "lcov"
+    ],
+    "all": true
+  }
 }

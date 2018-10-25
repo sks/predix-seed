@@ -12,7 +12,7 @@
 </template>
 
 <script lang='ts'>
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { INavItem } from '@/px/NavItem';
 import { Routes } from '@/router/routes';
 
